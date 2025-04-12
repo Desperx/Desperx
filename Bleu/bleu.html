@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DESPERX Bleu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('Fond2.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .desperx-bleu {
+      padding: 100px 30px;
+    }
+
+    .bleu-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .carousel {
+      position: relative;
+      width: 380px;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 172, 237, 0.4);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-track img {
+      width: 380px;
+      height: 500px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.4);
+      border: none;
+      color: white;
+      font-size: 2rem;
+      padding: 0 12px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .carousel-btn.left {
+      left: 0;
+    }
+
+    .carousel-btn.right {
+      right: 0;
+    }
+
+    .bleu-text {
+      max-width: 500px;
+    }
+
+    .bleu-text h2 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: #00aced;
+      text-shadow: 0 0 10px rgba(0, 172, 237, 0.6);
+    }
+
+    .bleu-text .intro {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .bleu-text p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #ddd;
+    }
+
+    .bleu-text ul {
+      margin-bottom: 25px;
+      padding-left: 20px;
+      list-style-type: disc;
+      color: #ccc;
+    }
+
+    .blue-button {
+      background: #00aced;
+      color: white;
+      padding: 14px 28px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 12px rgba(0, 172, 237, 0.5);
+      transition: 0.3s;
+      display: inline-block;
+    }
+
+    .blue-button:hover {
+      background: transparent;
+      border: 2px solid #00aced;
+      color: #00aced;
+    }
+
+    @media (max-width: 768px) {
+      .bleu-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .bleu-text ul {
+        text-align: left;
+      }
+
+      .carousel {
+        width: 320px;
+        height: 360px;
+      }
+
+      .carousel-track img {
+        width: 320px;
+        height: 360px;
+      }
+
+      .bleu-text h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<section class="desperx-bleu">
+  <div class="bleu-container">
+    <div class="carousel">
+      <button class="carousel-btn left" onclick="moveSlide(-1)">&#10094;</button>
+      <div class="carousel-track" id="track">
+        <img src="Face1.png" alt="T-shirt Bleu 1">
+        <img src="Dos1.png" alt="T-shirt Bleu 2">
+        <img src="Simple1.png" alt="T-shirt Bleu 3">
+      </div>
+      <button class="carousel-btn right" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+    <div class="bleu-text">
+      <h2>DESPERX Bleu</h2>
+      <p class="intro">Un design pur, une performance sans compromis.</p>
+      <p>Le t-shirt DESPERX bleu incarne la fraîcheur, l’élégance et la liberté de mouvement.</p>
+      <ul>
+        <li>🌀 Matière ultra-légère et respirante</li>
+        <li>✂️ Coupe moderne et sportive</li>
+        <li>🏓 Parfait pour briller à la table comme dans la rue</li>
+      </ul>
+      <a href="hhttps://www.instagram.com/desperx38?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="blue-button">Commander sur Instagram</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  let index = 0;
+  const track = document.getElementById('track');
+  const slides = track.children;
+
+  function moveSlide(step) {
+    index += step;
+    if (index < 0) index = slides.length - 1;
+    if (index >= slides.length) index = 0;
+    track.style.transform = `translateX(-${index * slides[0].offsetWidth}px)`;
+  }
+</script>
+
+</body>
+</html>
