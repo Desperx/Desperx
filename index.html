@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DESPERX</title>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      background: #000;
+      color: #fff;
+    }
+
+    .burger-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 35px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 2000;
+    }
+
+    .burger-toggle span {
+      display: block;
+      height: 4px;
+      width: 100%;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .burger-toggle.active span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+
+    .burger-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger-toggle.active span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      padding-top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      transition: left 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      z-index: 1500;
+    }
+
+    .side-menu.active {
+      left: 0;
+      opacity: 1;
+    }
+
+    .side-menu a {
+      color: #fff;
+      font-size: 1.4rem;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeInMenu 0.4s forwards;
+    }
+
+    .side-menu a:nth-child(1) { animation-delay: 0.1s; }
+    .side-menu a:nth-child(2) { animation-delay: 0.2s; }
+    .side-menu a:nth-child(3) { animation-delay: 0.3s; }
+    .side-menu a:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes fadeInMenu {
+      to { opacity: 1; }
+    }
+
+    .overlay {
+      position: relative;
+      min-height: 100vh;
+      background: url('Logo/Fond.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .overlay-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .overlay-logo {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .big-title {
+      font-size: 2.8rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: #e0e0e0;
+    }
+
+    .button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+    }
+
+    .shirt-fixed-section {
+      background: url('Logo/fond.png') no-repeat center center;
+      background-size: cover;
+      padding: 100px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease;
+    }
+
+    .shirt-img {
+      height: 220px;
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      cursor: pointer;
+      border-radius: 12px;
+    }
+
+    .shirt-img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    .extra-section {
+      background: #222;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .extra-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .extra-section p {
+      color: #ccc;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .color-section {
+      display: none;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 100px 40px;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .color-section img {
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .color-text {
+      max-width: 500px;
+      color: #fff;
+    }
+
+    .color-text h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .color-text p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #blueSection {
+      background: url('Bleu/Fond.png') no-repeat center center;
+      background-size: cover;
+    }
+
+    #blackSection {
+      background: url('Noir/Fond.png') no-repeat center center;
+      background-size: cover;
+      animation: slideInLeft 0.6s ease forwards;
+    }
+
+    #pinkSection {
+      background: url('Rose/Fond.png') no-repeat center center;
+      background-size: cover;
+      flex-direction: row-reverse;
+      animation: slideInRight 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 768px) {
+      .big-title { font-size: 2rem; }
+      .hero-subtitle { font-size: 1rem; }
+      .overlay-logo { width: 150px; }
+      .color-section { flex-direction: column; text-align: center; }
+      .color-section img { margin-bottom: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="burger-toggle" id="burgerToggle">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<nav class="side-menu" id="sideMenu">
+  <a href="#">Accueil</a>
+  <a href="#maillots">Produits</a>
+  <a href="#">À propos</a>
+  <a href="#">Contact</a>
+</nav>
+
+<div class="overlay">
+  <div class="overlay-content">
+    <img src="Logo/LogoBlanc.png" alt="DESPERX Logo" class="overlay-logo" />
+    <h1 class="big-title">La nouvelle ère du ping commence ici.</h1>
+    <p class="hero-subtitle">Osez la performance. Choisissez l'élégance.</p>
+    <a href="#maillots" class="button">Voir la collection</a>
+  </div>
+</div>
+
+<div class="shirt-fixed-section" id="maillots">
+  <img src="Rose/SimpleSF.png" data-color="rose" class="shirt-img" />
+  <img src="Noir/SimpleSF.png" data-color="noir" class="shirt-img" />
+  <img src="Bleu/SimpleSF.png" data-color="bleu" class="shirt-img" />
+</div>
+
+<div class="extra-section">
+  <h2>Un style unique pour chaque personnalité</h2>
+  <p>Explore nos nouvelles collections et découvre les histoires derrière chaque création. Une mode qui parle de toi.</p>
+</div>
+
+<div class="color-section" id="blueSection">
+  <img src="Bleu/SimpleSF.png" alt="T-shirt bleu">
+  <div class="color-text">
+    <h2>Découvrir :</h2>
+    <p>Un design pur. Une performance sans compromis.<br>Le t-shirt DESPERX bleu incarne la fraîcheur, l'élégance et la liberté de mouvement.</p>
+    <button class="button" onclick="location.href='Bleu/bleu.html'">En savoir plus</button>
+  </div>
+</div>
+
+<div class="color-section" id="blackSection">
+  <img src="Noir/SimpleSF.png" alt="T-shirt noir">
+  <div class="color-text">
+    <h2>Élégance assurée :</h2>
+    <p>Un look affirmé, une coupe moderne et une teinte noire profonde. Le modèle noir t'offre confiance et sobriété.</p>
+    <button class="button" onclick="location.href='Noir/noir.html'">Voir le modèle</button>
+  </div>
+</div>
+
+<div class="color-section" id="pinkSection">
+  <img src="Rose/SimpleSF.png" alt="T-shirt rose">
+  <div class="color-text">
+    <h2>Ose ta couleur :</h2>
+    <p>Un mélange vibrant entre puissance et douceur. Le modèle rose évoque l'originalité et l'audace.</p>
+    <button class="button" onclick="location.href='Rose/Rose.html'">Explorer</button>
+  </div>
+</div>
+
+<script>
+  const burger = document.getElementById('burgerToggle');
+  const menu = document.getElementById('sideMenu');
+
+  burger.addEventListener('click', (e) => {
+    burger.classList.toggle('active');
+    menu.classList.toggle('active');
+    e.stopPropagation();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !burger.contains(e.target)) {
+      menu.classList.remove('active');
+      burger.classList.remove('active');
+    }
+  });
+
+  const shirts = document.querySelectorAll('.shirt-img');
+  const sections = {
+    bleu: document.getElementById('blueSection'),
+    noir: document.getElementById('blackSection'),
+    rose: document.getElementById('pinkSection')
+  };
+
+  shirts.forEach(img => {
+    img.addEventListener('click', () => {
+      const color = img.dataset.color;
+      Object.keys(sections).forEach(key => {
+        sections[key].style.display = key === color ? 'flex' : 'none';
+      });
+      setTimeout(() => {
+        sections[color].scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+  });
+</script>
+
+</body>
+</html>
